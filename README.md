@@ -2,6 +2,9 @@
 
 [Visit Demo](https://spext-music-ui.web.app)
 
+Tip: Use Space, Left and Right Arrow keys to control the music.
+
+
 ### To Run
 
 ```bash
