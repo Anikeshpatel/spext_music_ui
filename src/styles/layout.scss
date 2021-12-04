@@ -1,0 +1,164 @@
+.music_player {
+  position: relative;
+  width: 80vw;
+  height: 50rem;
+  display: flex;
+  align-items: center;
+
+  @media screen and (max-width: 1600px) {
+    width: 90vw;
+  }
+
+  @media screen and (max-width: 1400px) {
+    width: 95vw;
+  }
+
+  @media screen and (max-width: 1100px) {
+    flex-direction: column;
+    height: 80vh;
+  }
+
+  @media screen and (max-width: 500px) {
+    flex-direction: column;
+    width: 98vw;
+    height: 98vh;
+  }
+
+  & > .card {
+    position: absolute;
+  }
+
+  & .music_card {
+    z-index: 10;
+    width: 55rem;
+
+    @media screen and (max-width: 1100px) {
+      width: 80%;
+    }
+
+    @media screen and (max-width: 700px) {
+      width: 90%;
+    }
+
+    @media screen and (max-width: 600px) {
+      width: 100%;
+    }
+
+    & .row {
+      @media screen and (max-width: 500px) {
+        flex-direction: column;
+        align-items: center;
+        padding: 0;
+
+        & .column {
+          width: 100%;
+        }
+
+        & .music_action_container {
+          flex-direction: row;
+          margin-top: 1rem;
+        }
+      }
+    }
+  }
+
+  & .music_control {
+    right: 0;
+    z-index: 9;
+    width: 80%;
+    height: 50%;
+    padding: 4rem 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    animation: 1s cubic-bezier(0.01, 0.88, 0, 1) 0s 1 slideInFromLeft;
+
+    @media screen and (max-width: 1100px) {
+      right: auto;
+      bottom: 0;
+      height: 60%;
+      flex-direction: column;
+      animation: 1s cubic-bezier(0.01, 0.88, 0, 1) 0s 1 slideInFromDown;
+    }
+
+    @media screen and (max-width: 700px) {
+      width: 90%;
+    }
+
+    @media screen and (max-width: 600px) {
+      width: 100%;
+    }
+
+    @media screen and (max-width: 500px) {
+      padding: 2rem 0;
+    }
+
+    & > div {
+      flex: 1;
+    }
+
+    & .controls_container {
+      flex: 2.5;
+
+      @media screen and (max-width: 1300px) {
+        flex: 2;
+      }
+
+      @media screen and (max-width: 1200px) {
+        flex: 1.8;
+      }
+
+      @media screen and (max-width: 1100px) {
+        flex: 1.5;
+      }
+
+      @media screen and (max-width: 500px) {
+        flex: 1;
+      }
+
+      & .slider_container {
+        margin-top: 3rem;
+
+        @media screen and (max-width: 500px) {
+          padding: 0 2rem;
+        }
+      }
+
+      & .music_control_action_container {
+        @media screen and (max-width: 500px) {
+        }
+      }
+    }
+
+    & .divider {
+      background: #e1deea;
+      width: 0.5rem;
+      border-radius: 100rem;
+      margin: 5rem 0 5rem 5rem;
+
+      @media screen and (max-width: 1100px) {
+        display: none;
+      }
+    }
+  }
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    width: 40%;
+    transform: translate(-70rem, 0);
+  }
+  100% {
+    width: 80%;
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes slideInFromDown {
+  0% {
+    transform: translate(0, 70rem);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
