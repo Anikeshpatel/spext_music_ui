@@ -1,5 +1,7 @@
 # Spext Music UI
 
+[Visit Demo](https://spext-music-ui.web.app)
+
 ### To Run
 
 ```bash
