@@ -9,12 +9,16 @@ export default function Button(props) {
       outline: props.outlined,
       rounded: props.rounded,
       flat: props.flat,
+      accent: props.accent
     },
     "btn"
   );
 
   const BUTTON = (
-    <button className={cls} onClick={props.onClick}>
+    <button className={cls} onClick={(e) => {
+      e.stopPropagation()
+      props.onClick?.()
+    }}>
       {props.icon && <span className="btn_icon"> {props.icon} </span>}
       {props.children && <div className="btn_content"> {props.children} </div>}
     </button>
@@ -29,6 +33,10 @@ export default function Button(props) {
       down={props.pressed}
       clickable
       className="pointer-cursor"
+      onClick={e => {
+        e.stopPropagation()
+        props.onClick?.()
+      }}
     >
       {" "}
       {BUTTON}{" "}

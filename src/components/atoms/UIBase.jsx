@@ -16,5 +16,5 @@ export default function UIBase(props) {
     props.className
   );
 
-  return <div className={cls}>{props.children}</div>;
+  return <div className={cls} onClick={props.onClick}>{props.children}</div>;
 }

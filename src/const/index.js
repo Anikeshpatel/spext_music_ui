@@ -7,6 +7,7 @@ import music3 from '../assets/music/mi_gente.mp3';
 
 export const LocalMusics = [
   {
+    id: 1,
     albumArt: musicAlbumArt,
     music,
     title: 'Purple Haze',
@@ -14,6 +15,7 @@ export const LocalMusics = [
     album: 'Woodsrock'
   },
   {
+    id: 2,
     albumArt: musicAlbumArt2,
     music: music2,
     title: 'Electricity',
@@ -21,6 +23,7 @@ export const LocalMusics = [
     album: 'Silk City'
   },
   {
+    id: 3,
     albumArt: musicAlbumArt3,
     music: music3,
     title: 'Mi Gente',

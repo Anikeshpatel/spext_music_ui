@@ -13,13 +13,20 @@ import Button from "../molecules/Button";
 import UISlider from "../atoms/UISlider";
 import { formatSecondsToHHMMSS } from "../../utils";
 
+const PLAY_MODE = {
+  LOOP: 'loop',
+  SINGLE: 'single',
+  SHUFFLE: 'shuffle'
+}
+
 export default function MusicControls(props) {
-  const { isPlaying, onPlay, onPause, onNext, onPrev, music, onEnd, autoPlay } =
+  const { isPlaying, onPlay, onPause, onNext, onPrev, music, onEnd, autoPlay, onShuffle } =
     props;
   const [duration, setDuration] = useState("00:00");
   const [currentTime, setCurrentTime] = useState("00:00");
   const [maxSeconds, setMaxSeconds] = useState(0);
   const [currentSeconds, setCurrentSeconds] = useState(0);
+  const [currentPlayMode, setCurrentPlayMode] = useState(PLAY_MODE.LOOP);
 
   const audioPlayer = useRef(new Audio());
   const seekAnimationRef = useRef();
@@ -30,15 +37,13 @@ export default function MusicControls(props) {
     setCurrentTime("00:00");
     setCurrentSeconds(0);
     audioPlayer.current?.addEventListener("loadeddata", onReady);
-    audioPlayer.current?.addEventListener("ended", handleEnd);
     audioPlayer.current?.addEventListener("canplay", canPlay);
     return () => {
       audioPlayer.current?.removeEventListener("loadeddata", onReady);
-      audioPlayer.current?.removeEventListener("ended", handleEnd);
       audioPlayer.current?.removeEventListener("canplay", canPlay);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [music]);
+  }, [music.id]);
 
   useEffect(() => {
     window.addEventListener("keyup", handleKeyEvent);
@@ -46,7 +51,14 @@ export default function MusicControls(props) {
       window.removeEventListener("keyup", handleKeyEvent);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [music, isPlaying]);
+  }, [music.id, isPlaying]);
+
+  useEffect(() => {
+    audioPlayer.current?.addEventListener("ended", handleEnd);
+    return () => {
+      audioPlayer.current?.removeEventListener("ended", handleEnd);
+    }
+  }, [music.id, currentPlayMode]);
 
   const handleKeyEvent = (e) => {
     if (e.code === "Space") {
@@ -92,8 +104,16 @@ export default function MusicControls(props) {
   };
 
   const handleEnd = () => {
-    handlePause();
-    onEnd();
+    if (currentPlayMode === PLAY_MODE.LOOP) {
+      handleNext();
+    } else if (currentPlayMode === PLAY_MODE.SINGLE) {
+      handlePlay();
+    } else if (currentPlayMode === PLAY_MODE.SHUFFLE) {
+      onShuffle?.();
+    } else {
+      handlePause();
+      onEnd();
+    }
   };
 
   const handleNext = () => {
@@ -134,13 +154,13 @@ export default function MusicControls(props) {
       <div className="row controls_container">
         <div className="column justify_between flex-1">
           <div className="row justify_between y_center music_control_action_container">
-            <Button flat icon={<MdShuffle size="25" />} />
-            <Button flat icon={<MdRepeat size="25" />} />
+            <Button flat icon={<MdShuffle size="20" />} accent={currentPlayMode === PLAY_MODE.SHUFFLE} onClick={() => setCurrentPlayMode(PLAY_MODE.SHUFFLE)} />
+            <Button flat icon={<MdRepeat size="20" />} accent={currentPlayMode === PLAY_MODE.SINGLE} onClick={() => setCurrentPlayMode(PLAY_MODE.SINGLE)} />
 
             <div className="row y_center justify_around flex-1">
               <Button
                 rounded
-                icon={<TiChevronLeft size="25" />}
+                icon={<TiChevronLeft size="24" />}
                 onClick={handlePrev}
               />
               <Button
@@ -148,21 +168,28 @@ export default function MusicControls(props) {
                 onClick={handlePlayPause}
                 icon={
                   isPlaying ? (
-                    <TiMediaPause size="55" />
+                    <TiMediaPause size="40" />
                   ) : (
-                    <TiMediaPlay size="55" />
+                    <TiMediaPlay size="40" />
                   )
                 }
               />
               <Button
                 rounded
-                icon={<TiChevronRight size="25" />}
+                icon={<TiChevronRight size="24" />}
                 onClick={handleNext}
               />
             </div>
 
-            <Button flat icon={<MdRepeat size="25" />} />
-            <Button flat icon={<HiAdjustments size="25" />} />
+            <div className="row y_center justify_around flex-1 mobile">
+              <Button flat icon={<MdShuffle size="20" />} accent={currentPlayMode === PLAY_MODE.SHUFFLE} onClick={() => setCurrentPlayMode(PLAY_MODE.SHUFFLE)} />
+              <Button flat icon={<MdRepeat size="20" />} accent={currentPlayMode === PLAY_MODE.SINGLE} onClick={() => setCurrentPlayMode(PLAY_MODE.SINGLE)} />
+              <Button flat icon={<MdRepeat size="20" />} accent={currentPlayMode === PLAY_MODE.LOOP} onClick={() => setCurrentPlayMode(PLAY_MODE.LOOP)} />
+              <Button flat icon={<HiAdjustments size="20" />} />
+            </div>
+
+            <Button flat icon={<MdRepeat size="20" />} accent={currentPlayMode === PLAY_MODE.LOOP} onClick={() => setCurrentPlayMode(PLAY_MODE.LOOP)} />
+            <Button flat icon={<HiAdjustments size="20" />} />
           </div>
 
           <div className="column slider_container">

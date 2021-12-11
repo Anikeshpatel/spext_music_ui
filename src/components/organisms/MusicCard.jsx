@@ -10,7 +10,7 @@ export default function MusicCard(props) {
   return (
     <Card round="lg" className="music_card">
       <div className="row p2">
-        <ImageView source={music.albumArt} width="25rem" height="25rem" />
+        <ImageView source={music.albumArt} width="30rem" height="30rem" />
 
         <div className="column justify_between p2 flex-1">
           <Typography size="md">Now Playing</Typography>
@@ -26,7 +26,7 @@ export default function MusicCard(props) {
           </div>
 
           <div className="row justify_between music_action_container">
-            <Button rounded outlined icon={<MdFavorite size="25" />} />
+            <Button rounded outlined accent={music.liked} icon={<MdFavorite size="25" />} onClick={props.toggleLike} />
             <Button
               rounded
               outlined

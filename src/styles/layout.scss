@@ -5,12 +5,16 @@
   display: flex;
   align-items: center;
 
+  @media screen and (max-width: 1700px) {
+      width: 85vw;
+  }
+
   @media screen and (max-width: 1600px) {
     width: 90vw;
   }
 
   @media screen and (max-width: 1400px) {
-    width: 95vw;
+    width: 98vw;
   }
 
   @media screen and (max-width: 1100px) {
@@ -20,8 +24,8 @@
 
   @media screen and (max-width: 500px) {
     flex-direction: column;
-    width: 98vw;
-    height: 98vh;
+    width: 98%;
+    height: 98%;
   }
 
   & > .card {
@@ -30,7 +34,7 @@
 
   & .music_card {
     z-index: 10;
-    width: 55rem;
+    width: 60rem;
 
     @media screen and (max-width: 1100px) {
       width: 80%;
@@ -42,6 +46,13 @@
 
     @media screen and (max-width: 600px) {
       width: 100%;
+    }
+
+    @media screen and (max-height: 650px) {
+      & .image__view {
+        width: 20rem !important;
+        height: 20rem !important;
+      }
     }
 
     & .row {
@@ -66,7 +77,7 @@
     right: 0;
     z-index: 9;
     width: 80%;
-    height: 50%;
+    height: 60%;
     padding: 4rem 2rem;
     display: flex;
     flex-direction: row;
@@ -93,23 +104,27 @@
       padding: 2rem 0;
     }
 
+    @media screen and (max-height: 650px) {
+      height: 45%;
+    }
+
     & > div {
       flex: 1;
     }
 
     & .controls_container {
-      flex: 2.5;
+      flex: 2.2;
 
       @media screen and (max-width: 1300px) {
-        flex: 2;
-      }
-
-      @media screen and (max-width: 1200px) {
         flex: 1.8;
       }
 
+      @media screen and (max-width: 1200px) {
+        flex: 1;
+      }
+
       @media screen and (max-width: 1100px) {
-        flex: 1.5;
+        flex: 1.2;
       }
 
       @media screen and (max-width: 500px) {
@@ -125,7 +140,28 @@
       }
 
       & .music_control_action_container {
+        gap: 1rem;
+
+        & .mobile {
+          display: none;
+        }
+
+        & .row {
+          gap: 1rem;
+          width: 100%;
+        }
+
         @media screen and (max-width: 500px) {
+          flex-direction: column;
+
+          & .mobile {
+            display: flex;
+          }
+
+          & > .flat.btn {
+            position: absolute;
+            display: none;
+          }
         }
       }
     }
